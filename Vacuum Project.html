@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Vacuum Chamber</title>
+   </head>
+   <body>
+      <div class="container">
+         <div class="barcode">xxx.DaedalusDaedalusDaedalus.xxx</div>
+         <img src="./LANDING02.png" style="width: 90%; max-width: 600px;">
+         <div class="buttons">
+            <img src="./SUCC.png" style="max-height: 100px; margin: 0 5px;" id="suction">
+            <img src="./GASEQN.png" style="max-height: 100px; margin: 0 5px;" id="gas">
+         </div>
+         <div class="text-name">
+            <img src="./FA.png" style="height: 50px; margin: 0 50px;">
+            <img src="./GG.png" style="height: 50px; margin: 0 50px;">
+            <img src="./SY.png" style="height: 50px; margin: 0 50px;">
+         </div>
+      </div>
+      <div class="dialog dialogG">
+         <div class="top">
+            <img src="./ENTER.png" style="height: 90px;">
+            <span class='cross crossG'>×</span>
+         </div>
+         <ul>
+            <li>
+               <span>Moles Of Gas</span>
+               <input type="number">
+            </li>
+            <li>
+               <span>Pressure (in Pa)</span>
+               <input type="number">
+            </li>
+            <li>
+               <span>Temperature (in K)</span>
+               <input type="number">
+            </li>
+            <li>
+               <span>Time (s)</span>
+               <input type="number">
+            </li>
+         </ul>
+         <button id='calcG' style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serifs;">Calculate</button>
+         <div class="final finalG">
+            <p id="throughput">Calculated Throughput</p>
+            <p id="pumping-speed">Calculated Pumping speed</p>
+            <div class="g1" id="throughput">lorem ipsum lorem ipsum lorem ipsum</div>
+            <div class="g2" id="pumping-speed">lorem ipsum lorem ipsum lorem ipsum</div>
+         </div>
+      </div>
+      <div class="dialog dialogS">
+         <div class="top">
+            <img src="./ENTER.png" style="height: 90px;">
+            <span class='cross crossS'>×</span>
+         </div>
+         <ul>
+            <li>
+               <span>Rotational Speed</span>
+               <input type="number">
+            </li>
+            <li>
+               <span>Input Pressure (in Pa)</span>
+               <input type="number">
+            </li>
+            <li>
+               <span>Output Pressure (in Pa)</span>
+               <input type="number">
+            </li>
+            <li>
+               <span>Dead Space Volume (in m <sup>3</sup>) </span>
+               <input type="number">
+            </li>
+            <li>
+               <span>Suction Chamber Volume (in m <sup>3</sup>) </span>
+               <input type="number">
+            </li>
+         </ul>
+         <button id='calcS'>Calculate</button>
+         <div class="final finalS">
+            <p id="throughput">Calculated Throughput</p>
+            <p id="pumping-speed">Calculated Pumping speed</p>
+            <div class="g1" id="throughput">lorem ipsum lorem ipsum lorem ipsum</div>
+            <div class="g2" id="pumping-speed">lorem ipsum lorem ipsum lorem ipsum</div>
+         </div>
+      </div>
+   </body>
+   <style>
+      @import url('https://fonts.googleapis.com/css2?family=Libre+Barcode+128&display=swap');
+   </style>
+   <style>
+      body {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      background: radial-gradient(circle, hsl(234, 66%, 39%), hsl(162, 100%, 50%) 30%, hsl(61, 100%, 50%) 45%, hsl(162, 100%, 50%) 70%);
+      background-size: 300% 300%;
+      animation: gradient 14s ease-in-out infinite;
+      }
+      .barcode {
+      font-family: 'Libre Barcode 128', cursive;
+      font-size: 3.5rem;
+      margin-bottom: -50px;
+      margin-top: 90px;
+      }
+      @keyframes gradient {
+      0% {
+      background-position: -10% 0%;
+      background-size: 0% 0%;
+      }
+      20% {
+      background-position: 50% 20%;
+      background-size: 300% 300%;
+      }
+      30% {
+      background-position: 50% 20%;
+      background-size: 240% 240%;
+      }
+      40% {
+      background-position: 50% 20%;
+      background-size: 300% 300%;
+      }
+      50% {
+      background-position: 50% 20%;
+      background-size: 250% 250%;
+      }
+      60% {
+      background-position: 50% 20%;
+      background-size: 300% 300%;
+      }
+      100% {
+      background-position: 0% 0%;
+      background-size: 0% 0%;
+      }
+      }
+      .bg {
+      background: #000;
+      opacity: 0.4;
+      width: 100vh;
+      height: 100vh;
+      }
+      #suction,
+      #gas {
+      background-color: transparent;
+      border: 1px solid black;
+      color: white;
+      font-family: 'Swiss 721 Black Extended BT', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      font-size: x-large;
+      outline: none;
+      cursor: pointer;
+      border-radius: 0;
+      transition: background 0.2s;
+      }
+      #suction:hover,
+      #gas:hover {
+      background: white;
+      border-color: white;
+      }
+      .text-name {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      height: 100px;
+      color: black;
+      padding: 20px;
+      }
+      .buttons {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      }
+      li span {
+      font-size: large;
+      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serifs;
+      }
+      li input {
+      font-size: large;
+      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serifs;
+      }
+      #calcS,
+      #calcG {
+      background-color: rgba(0, 0, 0, 0);
+      color: black;
+      border-color: black;
+      border-radius: 0px;
+      margin: 0;
+      text-transform: uppercase;
+      font-family: "Segoe UI";
+      font-size: 1.2rem;
+      letter-spacing: 2px;
+      font-weight: bold;
+      border: 1px solid black;
+      cursor: pointer;
+      transition: background 0.2s;
+      }
+      #calcS:hover,
+      #calcG:hover {
+      background: black;
+      color: white;
+      }
+      .container {
+      display: flex;
+      height: 100vh;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+      margin-left: 70px;
+      margin-right: 70px;
+      }
+      .top {
+      display: flex;
+      justify-content: space-between;
+      font-size: 40px;
+      }
+      #enter {
+      margin-top: 5px;
+      margin-left: 20px;
+      }
+      .cross {
+      position: relative;
+      top: 15px;
+      color: black;
+      cursor: pointer;
+      }
+      .dialog {
+      display: flex;
+      flex-direction: column;
+      margin: 0 auto;
+      padding: 30px 70px 50px 70px;
+      border: 5px solid rgba(0, 0, 0, 0.349);
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 50%;
+      background: white;
+      z-index: 999;
+      }
+      .dialogS {
+      display: none;
+      background-color: white;
+      color: black;
+      border-color: white;
+      border-radius: 0px;
+      }
+      .dialogG {
+      display: none;
+      background-color: white;
+      color: black;
+      border-color: white;
+      border-radius: 0px;
+      }
+      input {
+      background-color: rgba(0, 0, 0, 0);
+      color: black;
+      border-color: black;
+      border: 2px solid;
+      border-radius: 0px;
+      font-size: 1.2rem;
+      }
+      ul {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 0;
+      margin: 20px 0;
+      letter-spacing: 2px;
+      }
+      p {
+      display: block;
+      margin: 30px 0 10px 0;
+      font-weight: bold;
+      text-transform: uppercase;
+      }
+      #dialogS button {
+      font-size: 25px;
+      }
+      .final {
+      display: none;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 5px;
+      font-family: "segoe ui";
+      text-align: center;
+      }
+      .caption {
+      display: flex;
+      justify-content: space-around;
+      }
+      .g {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      }
+      .g1,
+      .g2 {
+      border: 2px solid black;
+      padding: 20px;
+      }
+      li {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 30px;
+      margin: 10px 0;
+      width: 100%;
+      font-size: 20px;
+      text-transform: uppercase;
+      font-family: "Segoe UI";
+      }
+      button {
+      padding: 20px 30px;
+      font-size: 30px;
+      margin: 20px;
+      border-radius: 0px;
+      border: 1px solid white;
+      }
+      span {
+      margin-right: 10px;
+      }
+      input {
+      margin-right: 10px;
+      }
+      h1 {
+      position: absolute;
+      font-size: 50px;
+      top: 20vh;
+      }
+      h2 {
+      position: absolute;
+      font-size: 30px;
+      top: 6vh;
+      }
+      ul {
+      list-style: none;
+      }
+      @media only screen and (max-width: 450px) {
+      .container {
+      justify-content: flex-end;
+      flex-direction: column;
+      }
+      button {
+      position: relative;
+      bottom: 20vh;
+      }
+      }
+   </style>
+   <script>
+      var sucBtn = document.getElementById('suction')
+      var gasBtn = document.getElementById('gas')
+      var dialogS = document.querySelector('.dialogS')
+      var dialogG = document.querySelector('.dialogG')
+      var crossS = document.querySelector('.crossS')
+      var crossG = document.querySelector('.crossG')
+      var calcG = document.getElementById('calcG')
+      var calcS = document.getElementById('calcS')
+      
+      function gas_equation_open() {
+        try {
+          var inputs = dialogG.querySelectorAll('input');
+          if (inputs[1].value == 0) throw "Pressure can't be zero";
+          if (inputs[3].value == 0) throw "Time can't be zero";
+          var Q = (inputs[0].value * 8.314 * inputs[2].value) / inputs[3].value;
+          var S = Q / inputs[1].value;
+          dialogG.querySelector('.finalG').style.display = 'grid';
+          dialogG.querySelector('.g1').innerHTML = Q + " W";
+          dialogG.querySelector('.g2').innerHTML = S + " m<sup>3</sup>/s";
+        } catch (err) {
+          MessageChannel.innerHTML = "Invalid Input:" + err;
+          window.alert("Invalid Input: " + err);
+        }
+      }
+      
+      function suction_chamber_open() {
+        try {
+          var inputs = dialogS.querySelectorAll('input');
+          if (inputs[1].value == 0) throw "Input Pressure can't be zero";
+          var Q = inputs[0].value * (inputs[4].value * inputs[1].value - inputs[3].value * inputs[2].value)
+          var S = Q / inputs[1].value
+          dialogS.querySelector('.finalS').style.display = 'grid';
+          dialogS.querySelector('.g1').innerHTML = Q + " W";
+          dialogS.querySelector('.g2').innerHTML = S + " m<sup>3</sup>/s";
+        } catch (err) {
+          MessageChannel.innerHTML = "Invalid Input:" + err;
+          window.alert("Invalid Input: " + err);
+        }
+      }
+      
+      function gas_equation_close() {
+        dialogG.style.display = 'none';
+        dialogG.querySelector('.finalG').style.display = 'none';
+      }
+      
+      function suction_chamber_close() {
+        dialogS.style.display = 'none';
+        dialogS.querySelector('.finalS').style.display = 'none';
+      }
+      sucBtn.addEventListener('click', () => {
+        dialogS.style.display = 'flex'
+      })
+      crossS.addEventListener('click', suction_chamber_close)
+      gasBtn.addEventListener('click', () => {
+        dialogG.style.display = 'flex'
+      })
+      crossG.addEventListener('click', gas_equation_close)
+      calcG.addEventListener('click', gas_equation_open)
+      calcS.addEventListener('click', suction_chamber_open)
+      document.addEventListener('keydown', (e) => {
+        if (e.key == 'Escape') {
+          gas_equation_close();
+          suction_chamber_close();
+        }
+      })
+   </script>
+</html>
